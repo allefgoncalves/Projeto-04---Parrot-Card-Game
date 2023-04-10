@@ -29,17 +29,17 @@ const imagemcarta = [
 ];
 
 const baralho = document.querySelector('ul');
-const dec = [];
+const deck = [];
 let i =0;
 
 while(cont<(cartas/2)){
 
 	while(i<=1){
-		dec.push(
-		`<li onclick="seleccard(this)">
-			<div class="card">
+		deck.push(
+		`<li>
+			<div class="cardclass" data-test='card'>
 	  			<div class="front-face face">
-					<image src="./Arquivos Úteis - Projeto 04 - Parrot Card Game//back.png">
+					<image class="form_image" src="./Arquivos Úteis - Projeto 04 - Parrot Card Game//back.png">
 	  			</div>
 	  			<div class="back-face face">
 	  				<image src="${imagemcarta[cont]}">
@@ -54,8 +54,10 @@ while(cont<(cartas/2)){
 
 cont=0; 
 
-while(cont<cartas){
-	baralho.innerHTML = baralho.innerHTML + dec[cont];
+//escreve a array deck no codigo html.
+// OBS: falta deixar aleatorio a variavel const
+while(cont<cartas){  
+	baralho.innerHTML = baralho.innerHTML + deck[cont];
 	cont++
 }
 
@@ -66,7 +68,11 @@ let primeira_escolha = '';
 let segunda_escolha = '';
 let end = 0;
 
-card.forEach((carta) => {
+const deck_aux = document.querySelectorAll(".cardclass");
+
+cont=0;
+
+deck_aux.forEach((carta) => {
 	carta.addEventListener("click", () => {
 	  if (!carta.classList.contains("virada") && cont < 1) {
 		carta.classList.add("virada");
@@ -77,18 +83,18 @@ card.forEach((carta) => {
 		carta.classList.add("virada");
 		cont++;
 		segunda_escolha = carta;
-		setTimeout(checarPares,1000,primeira_escolha,segunda_escolha);
+		setTimeout(comparador,1000,primeira_escolha,segunda_escolha);
 		jogadas++;
 	  }
 	});
 })
 
-function checarPares(a, b) {
+function comparador(a, b) {
 	if (a.querySelector('.back-face>img').src === b.querySelector('.back-face>img').src) {
 	  cont = 0;
 	  a = '';
 	  b = '';
-	  contarPares++;
+	  end++;
 	} else if (a.querySelector('.back-face>img').src !== b.querySelector('.back-face>img').src) {
 	  cont = 0;
 	  a.classList.remove('virada');
