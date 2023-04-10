@@ -2,13 +2,9 @@
 let cont = 1;
 let cartas = 2;
 
-function comparador() { 
-	return Math.random() - 0.5; 
-}
-
 while(cont==1){
 	cartas = prompt('quantas cartas vc quer utilizar?');
-	if(cartas>5){
+	if(cartas>3){
 		if(cartas<15){
 			if(cartas%2==0){
 				cont = 0;
@@ -39,10 +35,10 @@ while(cont<(cartas/2)){
 		`<li>
 			<div class="cardclass" data-test='card'>
 	  			<div class="front-face face">
-					<image class="form_image" src="./Arquivos Úteis - Projeto 04 - Parrot Card Game//back.png">
+					<image data-test="face-down-image" class="form_image" src="./Arquivos Úteis - Projeto 04 - Parrot Card Game//back.png">
 	  			</div>
 	  			<div class="back-face face">
-	  				<image src="${imagemcarta[cont]}">
+	  				<image data-test="face-up-image src="${imagemcarta[cont]}">
 	  			</div>
 			</div>
   		</li>`);
@@ -54,8 +50,14 @@ while(cont<(cartas/2)){
 
 cont=0; 
 
+deck.sort(comparador);
+
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
 //escreve a array deck no codigo html.
-// OBS: falta deixar aleatorio a variavel const
+
 while(cont<cartas){  
 	baralho.innerHTML = baralho.innerHTML + deck[cont];
 	cont++
